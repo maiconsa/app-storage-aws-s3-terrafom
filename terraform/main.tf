@@ -10,6 +10,7 @@ terraform {
 #Configure using Environment variable 
 provider "aws" {
  region = var.region
+ profile = var.env
 }
 
 resource "aws_iam_user" "app-storage-user" {
