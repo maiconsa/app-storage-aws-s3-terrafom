@@ -59,6 +59,7 @@ IMPORTANTE: Para rodar utilizando o ambiente localstack é necessário configura
  Aplique  a criação dos recursos para o ambiente que deseja. Os valores de [ENV] são **test**,**localstack**,**hom**,**prod**.
  
 ```bash
+cd ./terraform
 ./start.sh [ENV]
  ```
 
@@ -75,4 +76,10 @@ aws_secret_access_key=[YOUR_SECRET]
 [test-app-storage]
 aws_access_key_id=[ACCESS_USER_APP_STORAGE]
 aws_secret_access_key=[SECRET_USER_APP_STORAGE]
+ ```
+ 
+### Destruindo os recursos criados
+```bash
+cd ./terraform
+./start.sh [ENV]
  ```
