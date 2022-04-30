@@ -13,7 +13,7 @@
 	<title>Storage Files - AWS S3</title>
 </head>
 
-<body>
+<body>>
 
 	<div class="container">
 
@@ -22,7 +22,7 @@
 			<form class="card-body" method="POST" th:action="@{/upload}" enctype="multipart/form-data">
 				<div>
 					<label for="file" class="form-label">Upload</label>
-					<input class="form-control form-control-lg" id="file" type="file" name="file">
+					<input class="form-control form-control-lg" id="file" required type="file" name="file">
 					<div class="feedback-invalid"></div>
 				</div>
 				<div class="mt-3">
@@ -36,7 +36,7 @@
 
 		<div class="card mt-3">
 			<h3 class="card-header"> List Object - Folder: Upload</h3>
-			<table class="table">
+			<table class="table ">
 				<thead>
 					<tr>
 						<th scope="col"><i class="fas fa-file"></i></th>
@@ -46,17 +46,19 @@
 						<th scope="col">Actions</th>
 					</tr>
 				</thead>
+				<tbody>
 				<tr th:each="object, iteration : ${objects}">
 					<td scope="row">[[${iteration.count}]]</td>
 					<td>[[${object.name}]]</td>
 					<td>[[${object.relativepath}]] Bytes</td>
-					<td>[[${#dates.format(object.lastModified, 'd. MMM. yyyy HH:mm:ss Z')}]]</td>
+					<td>[[${#dates.format(object.lastModified, 'd MMM yyyy HH:mm:ss Z')}]]</td>
 					<td>
 						<a download target="_blank" th:href="@{'/download/'+${object.name}}" >
 							<i class="fas fa-download"></i> Download
 						</a>
 					</td>
 				</tr>
+				</body>
 			</table>
 		</div>
 

@@ -1,7 +1,7 @@
 variable "env" {
   type = string
   validation {
-    condition = var.env == "local" || var.env == "test"
+    condition = var.env == "localstack" || var.env == "test" || var.env == "hom" || var.env == "prod"
     error_message = "The env variable value must be \"local\" or \"test\"."
   }
 }
