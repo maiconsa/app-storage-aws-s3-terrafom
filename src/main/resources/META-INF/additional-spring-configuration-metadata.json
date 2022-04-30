@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "storage.s3.bucket-name",
+  "type": "java.lang.String",
+  "description": "A description for 'storage.s3.bucket-name'"
+}]}
