@@ -30,7 +30,7 @@ Abaico é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 Para o presente projeto foi utilizado o Terraform para a construção dos recursos **S3**,**IAM (User,  Policy , Secrets**).
 
 ### Requisitos para executar o Terraform
- Configurar/Criar  o arquivo de credentiais de perfil  no caminho padrão *~/.aws/credentiais* informando as suas chaves geradas no console da AWS. No exemplo a seguir é mostrado como ficam as credenciais para cada ambiente presente na pasta *terraform/env*.
+ Configurar/Criar  o arquivo de credentiais de perfil  no caminho padrão *`~/.aws/credentiais`* informando as suas chaves geradas no console da AWS. No exemplo a seguir é mostrado como ficam as credenciais para cada ambiente presente na pasta *`terraform/env*.
 
 ```bash
 [test]
