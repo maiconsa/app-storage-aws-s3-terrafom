@@ -1,6 +1,6 @@
 version: 0.2
 env:
-  variable:
+  variables:
       URL_ECR: 416493607574.dkr.ecr.sa-east-1.amazonaws.com/app_storage 
 phases:
   pre_build:
