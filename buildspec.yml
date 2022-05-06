@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+
+  pre_build:
+    commands:
+      - echo Logando no Amazon ECR...
+      - aws --version
+      - URL_ECR=416493607574.dkr.ecr.sa-east-1.amazonaws.com/app_storage 
+      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin $URL_ECR 
+  build:
+    commands:
+      - Iniciando contrução da imagem às `date`
+      - docker build -t app_storage .
+      - docker tag app_storage:latest $URL_ECR:latest
+  post_build:
+    commands:
+      - docker push $URL_ECR:latest
+
+artifacts:
+  files: imagedef.json
