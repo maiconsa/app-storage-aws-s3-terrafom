@@ -8,14 +8,14 @@ phases:
     commands:
       - echo Logando no Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin $URL_ECR 
+      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin ${URL_ECR} 
   build:
     on-failure: ABORT
     commands:
       - Iniciando contrução da imagem às ${date}
       - docker build -t app_storage .
-      - docker tag app_storage:latest $URL_ECR:latest
+      - docker tag app_storage:latest ${URL_ECR}:latest
   post_build:
     on-failure: ABORT
     commands:
-      - docker push $URL_ECR:latest
+      - docker push ${URL_ECR}:latest
