@@ -16,11 +16,11 @@ Abaixo é mostrado o envio de um novo arquivo.
 ![Imagem Upload realizado com Sucesso](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/app-storage-success-upload.png)
 
 2 - Caixa de Download
-Abaico é mostrado a caixa de download após clicar no botão "Download".
+Abaixo é mostrado a caixa de download após clicar no botão "Download".
 ![Imagem Download](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/app-storage-download.png)
 
 3 - Evidência upload
-Abaico é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
+Abaixo é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 ![Imagem Download](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/objects-bucket.png)
 
 
