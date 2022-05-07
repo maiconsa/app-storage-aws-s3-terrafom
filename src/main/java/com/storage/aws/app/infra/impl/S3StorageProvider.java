@@ -3,6 +3,7 @@ package com.storage.aws.app.infra.impl;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
@@ -51,7 +52,7 @@ public class S3StorageProvider implements StorageProvider,SearchStorageProvider 
 							client.getUrl(bucketName, objectSummary.getKey()).toString(),
 							objectSummary.getLastModified()
 							))
-		.toList();
+		.collect(Collectors.toList());
 	}
 	
 	
