@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn -e -B dependency:resolve
 COPY src ./src
-RUN mvc clean -e -B package
+RUN mvn clean -e -B package
 
 FROM 11-jre-slim-buster
 WORKDIR /app
