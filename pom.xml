@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.storage.aws.app</groupId>
 	<artifactId>storage.s3.app</artifactId>
-	<version>0.0.1-RELEASE</version>
+	<version>1.0.0</version>
 	<name>app-storage-aws-s3-terraform</name>
 	<description>Prove of Concept AWS S3 with Terraform IaS</description>
 	<properties>
