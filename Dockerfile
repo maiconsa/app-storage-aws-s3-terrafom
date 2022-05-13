@@ -1,11 +1,11 @@
-FROM maven:3.8.1-openjdk-11-slim as mavem
+FROM public.ecr.aws/docker/library/maven:3.8.5-openjdk-8-slim as mavem
 WORKDIR /app
 COPY pom.xml .
 RUN mvn -e -B dependency:resolve
 COPY src ./src
 RUN mvn clean -e -B package
 
-FROM openjdk:11.0.4-jre-slim-buster
+FROM public.ecr.aws/docker/library/openjdk:11
 RUN addgroup -S appuser && adduser -S appuser -G appuser
 USER appuser
 WORKDIR /app
