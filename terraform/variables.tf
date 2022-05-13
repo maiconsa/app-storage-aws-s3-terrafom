@@ -22,3 +22,7 @@ variable "bucket_name" {
 variable "policy_name" {
   type = string
 }
+
+variable "personal_access_token" {
+  type = string
+}
