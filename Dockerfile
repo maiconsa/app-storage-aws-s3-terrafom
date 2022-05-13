@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/maven:3.8.5-openjdk-8-slim as mavem
+FROM public.ecr.aws/docker/library/maven:3.8.5-openjdk-11-slim as mavem
 WORKDIR /app
 COPY pom.xml .
 RUN mvn -e -B dependency:resolve
