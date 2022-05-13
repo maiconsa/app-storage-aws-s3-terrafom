@@ -1,8 +1,8 @@
 version: 0.2
 env:
   variables:
-      URL_ECR: 416493607574.dkr.ecr.sa-east-1.amazonaws.com/app_storage 
-      REGION: sa-east-1
+      VERSION_TAG: ${CODEBUILD_BUILD_ID}
+      IMAGE_URI: ${URL_ECR}:${VERSION_TAG}
 phases:
   pre_build:
     on-failure: ABORT
@@ -19,4 +19,10 @@ phases:
   post_build:
     on-failure: ABORT
     commands:
+      - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
+      - echo Escrevendo arquivo imagedefinitions.json
+      - printf '[{"name":"app_storage","imageUri":"%s"}]' ${IMAGE_URI}  > imagedefinitions.json
+      - cat imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
