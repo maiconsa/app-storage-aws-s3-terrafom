@@ -13,8 +13,8 @@ phases:
   build:
     on-failure: ABORT
     commands:
-      - echo Iniciando contrução da imagem `date`
-      - docker build -t app_storage .
+      - echo "Iniciando contrução da imagem ${date}"
+      - docker build -t app_storage ./Dockerfile.aws
       - docker tag app_storage:latest ${URL_ECR}:latest
   post_build:
     on-failure: ABORT
