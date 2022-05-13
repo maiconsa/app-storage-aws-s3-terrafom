@@ -7,13 +7,13 @@ phases:
   pre_build:
     on-failure: ABORT
     commands:
-      - echo Logando no Amazon ECR...
+      - echo Logando no Amazon ECR (${URL_ECR})...
       - aws --version
-      - aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${URL_ECR} 
+      - aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${URL_ECR}
   build:
     on-failure: ABORT
     commands:
-      - echo Iniciando contrução da imagem ${data}
+      - echo Iniciando contrução da imagem `date`
       - docker build -t app_storage .
       - docker tag app_storage:latest ${URL_ECR}:latest
   post_build:

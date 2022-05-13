@@ -44,8 +44,7 @@ resource "aws_iam_role_policy_attachment" "LinkECRPowerUserPolicyToRole" {
 resource "aws_codebuild_source_credential" "github_credentials" {
   auth_type   = "PERSONAL_ACCESS_TOKEN"
   server_type = "GITHUB"
-  # token       = var.personal_access_token
-  token = "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"
+  token       = var.personal_access_token
 }
 
 
