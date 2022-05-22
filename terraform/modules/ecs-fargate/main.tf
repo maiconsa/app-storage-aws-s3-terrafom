@@ -41,6 +41,14 @@ resource "aws_ecs_task_definition" "task_definition" {
   cpu                      = var.container_cpu
   memory                   = var.container_memory
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  environment = [
+    { "name" : "SPRING_PROFILES_ACTIVE", "value" : "aws" },
+    { "name" : "STORAGE_S3_BUCKETNAME", "value" : var.bucket_name },
+    { "name" : "CLOUD_AWS_S3_REGION", "value" : var.region },
+    { "name" : "CLOUD_AWS_CREDENTIALS_ACCESSKEY", "value" : var.bucket_access_key },
+    { "name" : "CLOUD_AWS_CREDENTIALS_SECRETKEY", "value" : var.bucket_secret_key }
+
+  ]
   container_definitions = jsonencode([
     {
       name      = "${var.container_name}-${var.env}"
@@ -48,7 +56,7 @@ resource "aws_ecs_task_definition" "task_definition" {
       essential = true
       portMappings = [
         {
-          protocol = "tcp"
+          protocol      = "tcp"
           containerPort = "${var.container_port}"
           hostPort      = 80
         }

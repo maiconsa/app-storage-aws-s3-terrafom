@@ -64,6 +64,11 @@ module "ecs" {
   private_subnet_ids   = module.vpc.private_subnet_ids
   alb_target_group_arn = module.loadbalancer.alb_target_group_arn
 
+  region = var.region
+  bucket_name = module.bucket.bucket_name
+  bucket_access_key = module.bucket.access_key_app_user
+  bucket_secret_key = module.bucket.secret_key_app_user
+
   container_name   = var.container_name
   container_image  = var.container_image
   container_port   = var.container_port
