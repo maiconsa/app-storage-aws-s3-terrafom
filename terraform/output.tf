@@ -1,13 +1,9 @@
 
-output "bucket_name" {
-  value = aws_s3_bucket.app-storage.bucket
-}
-
 output "access_key_app_user" {
-  value = aws_iam_access_key.app-storage-user-credentials.id
+  value = module.bucket.access_key_app_user
 }
 
 output "secret_key_app_user" {
-  value = aws_iam_access_key.app-storage-user-credentials.secret
+  value     = module.bucket.secret_key_app_user
   sensitive = true
 }

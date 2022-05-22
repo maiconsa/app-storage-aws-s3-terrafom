@@ -4,6 +4,8 @@ set -e
 # Get First parameter  or a default 
 ENV=${1-'test'}
 
+terraform get
+
 # Build Infra 
  terraform apply -var-file="env/${ENV}.tfvars"
 

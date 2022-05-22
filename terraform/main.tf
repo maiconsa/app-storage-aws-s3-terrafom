@@ -2,58 +2,72 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~>3.0"
+      version = "4.15.1"
     }
   }
 }
 
 #Configure using Environment variable 
 provider "aws" {
- region = var.region
- profile = var.env
-}
-
-resource "aws_iam_user" "app-storage-user" {
-  name = "${var.env}-${var.user_name}"
-}
-resource "aws_iam_access_key" "app-storage-user-credentials" {
-  user = aws_iam_user.app-storage-user.name
-}
-
-resource "aws_s3_bucket" "app-storage" {
-  bucket = "${var.env}-${var.bucket_name}"
-}
-
-resource "aws_s3_bucket_public_access_block" "block-all-public-acess" {
-  bucket = aws_s3_bucket.app-storage.id
-  block_public_policy = true
-  block_public_acls = true
-  ignore_public_acls = true
-  restrict_public_buckets = true
+  region  = var.region
+  profile = var.env
 }
 
 
-resource "aws_iam_policy" "app-storage-s3-policy" {
-  name   = "${var.env}-${var.policy_name}"
-  policy = data.aws_iam_policy_document.app-storage-document.json
-}
-data "aws_iam_policy_document" "app-storage-document" {
-  statement {
-    actions   = [
-        "s3:GetObject", 
-        "s3:PutObject", 
-        "s3:DeleteObject",
-         "s3:ListBucket",
-        ]
-    resources = [
-        "arn:aws:s3:::${aws_s3_bucket.app-storage.bucket}",
-        "arn:aws:s3:::${aws_s3_bucket.app-storage.bucket}/upload*"
-        ]
-  }
+module "bucket" {
+  source   = "./modules/s3"
+  env      = var.env
+  app_name = var.app_name
+
 }
 
 
-resource "aws_iam_user_policy_attachment" "link-policy-to-user" {
-    policy_arn = aws_iam_policy.app-storage-s3-policy.arn
-    user = aws_iam_user.app-storage-user.name
+module "vpc" {
+  source               = "./modules/vpc"
+  env                  = var.env
+  app_name             = var.app_name
+  vpc_cidr             = var.vpc_cidr
+  availability_zones   = var.availability_zones
+  public_subnet_cidrs  = var.public_subnet_cidrs
+  private_subnet_cidrs = var.private_subnet_cidrs
+}
+
+module "ecr" {
+  source   = "./modules/ecr"
+  env      = var.env
+  app_name = var.app_name
+}
+
+module "codebuild" {
+  source                = "./modules/code-build"
+  env                   = var.env
+  app_name              = var.app_name
+  github_token          = var.github_personal_access_token
+  github_repository_url = var.github_repository_url
+  ecr_repository_url    = module.ecr.ecr_repository_url
+}
+
+module "loadbalancer" {
+  source             = "./modules/loadbalancer"
+  env                = var.env
+  app_name           = var.app_name
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  healthcheck_path   = var.healthcheck_path
+}
+
+module "ecs" {
+  source               = "./modules/ecs-fargate"
+  env                  = var.env
+  app_name             = var.app_name
+  vpc_id               = module.vpc.vpc_id
+  private_subnet_ids   = module.vpc.private_subnet_ids
+  alb_target_group_arn = module.loadbalancer.alb_target_group_arn
+
+  container_name   = var.container_name
+  container_image  = var.container_image
+  container_port   = var.container_port
+  container_cpu    = var.container_cpu
+  container_memory = var.container_memory
+
 }
