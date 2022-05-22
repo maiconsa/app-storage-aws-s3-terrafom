@@ -2,7 +2,7 @@ version: 0.2
 env:
   variables:
       VERSION_TAG: ${CODEBUILD_BUILD_ID}
-      IMAGE_URI: ${URL_ECR}:${VERSION_TAG}
+      IMAGE_URI: "${URL_ECR}:${VERSION_TAG}"
 phases:
   pre_build:
     on-failure: ABORT
@@ -14,15 +14,15 @@ phases:
     on-failure: ABORT
     commands:
       - echo "Iniciando contrução da imagem ${date}"
-      - docker build -t app_storage .
-      - docker tag app_storage:latest ${URL_ECR}:latest
+      - docker build -t ${IMAGE_NAME} .
+      - docker tag ${IMAGE_NAME}:latest ${URL_ECR}:latest
   post_build:
     on-failure: ABORT
     commands:
       - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
       - echo Escrevendo arquivo imagedefinitions.json
-      - printf '[{"name":"app_storage","imageUri":"%s"}]' ${IMAGE_URI}  > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "${IMAGE_NAME}" "${IMAGE_URI}"  > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
