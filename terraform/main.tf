@@ -45,6 +45,7 @@ module "codebuild" {
   github_token          = var.github_personal_access_token
   github_repository_url = var.github_repository_url
   ecr_repository_url    = module.ecr.ecr_repository_url
+  image_name = var.container_image
 }
 
 module "loadbalancer" {

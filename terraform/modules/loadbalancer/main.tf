@@ -1,4 +1,6 @@
 resource "aws_security_group" "alb_security_group" {
+  name = "${var.app_name}-alb-${var.env}"
+  vpc_id = var.vpc_id
   ingress {
     protocol         = "tcp"
     from_port        = 80
@@ -17,7 +19,7 @@ resource "aws_security_group" "alb_security_group" {
 
 
 resource "aws_lb" "alb" {
-  name                       = "lbappstorage"
+  name                       = "${var.app_name}-alb-${var.env}"
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb_security_group.id]
@@ -39,11 +41,11 @@ resource "aws_alb_target_group" "ip_alb_group" {
 }
 
 resource "aws_alb_listener" "alb_http_listener" {
-  load_balancer_arn = aws_lb.alb.arn
+  load_balancer_arn = aws_lb.alb.id
   port              = 80
   protocol          = "HTTP"
   default_action {
-    target_group_arn = aws_alb_target_group.ip_alb_group.arn
+    target_group_arn = aws_alb_target_group.ip_alb_group.id
     type             = "forward"
   }
 }

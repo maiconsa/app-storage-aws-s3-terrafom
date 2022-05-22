@@ -30,3 +30,8 @@ variable "ecr_repository_url" {
 variable "github_repository_url" {
   type = string
 }
+
+variable "image_name" {
+    type = string
+    description = "The image name. Example: app-storage"
+}

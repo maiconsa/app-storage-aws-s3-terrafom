@@ -25,8 +25,8 @@ resource "aws_iam_role_policy" "role-policy" {
         {
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:logs:us-east-1:416493607574:log-group:/aws/codebuild/${var.app_name}-code-build-${var.env}",
-                "arn:aws:logs:us-east-1:416493607574:log-group:/aws/codebuild/${var.app_name}-code-build-${var.env}:*"
+                "arn:aws:logs:us-east-1:416493607574:log-group:/aws/codebuild/*",
+                "arn:aws:logs:us-east-1:416493607574:log-group:/aws/codebuild/*:*"
             ],
             "Action": [
                 "logs:CreateLogGroup",
@@ -57,7 +57,7 @@ resource "aws_iam_role_policy" "role-policy" {
                 "codebuild:BatchPutCodeCoverages"
             ],
             "Resource": [
-                "arn:aws:codebuild:us-east-1:416493607574:report-group/${var.app_name}-code-build-${var.env}-*"
+                "arn:aws:codebuild:us-east-1:416493607574:report-group/${var.app_name}-code-build-${var.env}*"
             ]
         }
     ]
@@ -96,6 +96,10 @@ resource "aws_codebuild_project" "codebuild-project" {
     environment_variable {
       name="REGION"
       value=var.region
+    }
+    environment_variable {
+      name="IMAGE_NAME"
+      value=var.image_name
     }
     
   }
