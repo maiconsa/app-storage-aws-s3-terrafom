@@ -8,7 +8,7 @@ public_subnet_cidrs=["10.1.1.0/24"]
 private_subnet_cidrs=["10.1.20.0/24","10.1.30.0/24"]
 github_repository_url="https://github.com/maiconsa/app-storage-aws-s3-terrafom"
 
-healthcheck_path="/healthcheck"
+healthcheck_path="/actuator/health"
 
 
 container_name="app-storage"

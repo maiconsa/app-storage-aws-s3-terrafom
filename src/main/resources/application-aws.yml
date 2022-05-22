@@ -1,0 +1,13 @@
+
+cloud:
+  aws:
+    credentials:
+      instance-profile: false
+      access-key: SET_ENV_ACCESS_KEY
+      secret-key: SET_SECRET_KEY
+    s3:
+      region: SET_REGION
+      
+storage:
+  s3:
+    bucket-name: SET_BUCKET_NAME

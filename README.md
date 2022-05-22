@@ -25,7 +25,7 @@ Abaico é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 
 
 
-## Infraestutura como Serviço (IaS) - Terraform
+## Infraestutura como Código (IaC) - Terraform
 
 Para o presente projeto foi utilizado o Terraform para a construção dos recursos **S3**,**IAM (User,  Policy , Secrets**).
 

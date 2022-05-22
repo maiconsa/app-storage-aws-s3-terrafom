@@ -7,6 +7,6 @@ RUN mvn clean -e -B package
 
 FROM public.ecr.aws/docker/library/openjdk:11
 WORKDIR /app
-COPY --from=mavem /app/target/*.jar ./app.jar
+COPY --from=mavem  /app/target/*.jar  ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","./app.jar"]

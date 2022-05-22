@@ -2,7 +2,7 @@
 cloud:
   aws:
     credentials:
-      instance-profile: true
+      instance-profile: false
       profile-name: test-app-storage
     s3:
       region: "us-east-1"
