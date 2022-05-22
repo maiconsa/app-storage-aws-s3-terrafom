@@ -101,6 +101,10 @@ resource "aws_codebuild_project" "codebuild-project" {
       name="IMAGE_NAME"
       value=var.image_name
     }
+        environment_variable {
+      name="CONTAINER_NAME"
+      value=var.container_name
+    }
     
   }
   artifacts {

@@ -9,7 +9,7 @@ phases:
   build:
     on-failure: ABORT
     commands:
-      - echo "Iniciando contrução da imagem ${date}"
+      - echo "Iniciando contrução da imagem:${IMAGE_NAME}:latest"
       - docker build -t "${IMAGE_NAME}:latest" .
       - docker tag "${IMAGE_NAME}:latest" ${URL_ECR}:latest
   post_build:
@@ -18,7 +18,7 @@ phases:
       - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
       - echo Escrevendo arquivo imagedefinitions.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' "${IMAGE_NAME}" "${URL_ECR}:latest"  > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:latest"  > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files: imagedefinitions.json

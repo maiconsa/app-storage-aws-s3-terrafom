@@ -35,3 +35,8 @@ variable "image_name" {
     type = string
     description = "The image name. Example: app-storage"
 }
+
+variable "container_name" {
+    type = string
+    description = "The container name. Example: app-storage"
+}

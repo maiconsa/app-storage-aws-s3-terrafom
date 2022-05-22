@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "task_definition" {
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   container_definitions = jsonencode([
     {
-      name      = "${var.container_name}-${var.env}"
+      name      = "${var.container_name}"
       image     = "${var.container_image}:latest"
       essential = true
         environment = [
@@ -103,7 +103,7 @@ resource "aws_ecs_service" "app-storage" {
   load_balancer {
     target_group_arn = var.alb_target_group_arn
     container_port   = var.container_port
-    container_name   = "${var.container_name}-${var.env}"
+    container_name   = "${var.container_name}"
   }
 
 }
