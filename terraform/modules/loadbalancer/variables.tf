@@ -20,6 +20,10 @@ variable "private_subnet_ids" {
   type = list(string)
 }
 
+variable "public_subnet_ids" {
+  type = list(string)
+}
+
 variable "healthcheck_path" {
   type = string
 }

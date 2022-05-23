@@ -33,6 +33,15 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attach
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_cloudwatch_log_group" "logs" {
+  name = "/ecs/${var.app_name}-task-${var.env}"
+
+  tags = {
+    Name        = "${var.app_name}-task-${var.env}"
+    Environment = var.env
+  }
+}
+
 
 resource "aws_ecs_task_definition" "task_definition" {
   family                   = "${var.app_name}-task-def-${var.env}"
@@ -46,13 +55,13 @@ resource "aws_ecs_task_definition" "task_definition" {
       name      = "${var.container_name}"
       image     = "${var.container_image}:latest"
       essential = true
-        environment = [
-    { "name" : "SPRING_PROFILES_ACTIVE", "value" : "aws" },
-    { "name" : "STORAGE_S3_BUCKETNAME", "value" : var.bucket_name },
-    { "name" : "CLOUD_AWS_S3_REGION", "value" : var.region },
-    { "name" : "CLOUD_AWS_CREDENTIALS_ACCESSKEY", "value" : var.bucket_access_key },
-    { "name" : "CLOUD_AWS_CREDENTIALS_SECRETKEY", "value" : var.bucket_secret_key }
-  ]
+      environment = [
+        { "name" : "SPRING_PROFILES_ACTIVE", "value" : "aws" },
+        { "name" : "STORAGE_S3_BUCKETNAME", "value" : var.bucket_name },
+        { "name" : "CLOUD_AWS_S3_REGION", "value" : var.region },
+        { "name" : "CLOUD_AWS_CREDENTIALS_ACCESSKEY", "value" : var.bucket_access_key },
+        { "name" : "CLOUD_AWS_CREDENTIALS_SECRETKEY", "value" : var.bucket_secret_key }
+      ]
       portMappings = [
         {
           protocol      = "tcp"
@@ -60,6 +69,14 @@ resource "aws_ecs_task_definition" "task_definition" {
           hostPort      = "${var.container_port}"
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.logs.name
+          awslogs-stream-prefix = "ecs"
+          awslogs-region        = var.region
+        }
+      }
   }, ])
 }
 
@@ -70,7 +87,7 @@ resource "aws_security_group" "ecs_task_app_storage" {
   vpc_id = var.vpc_id
   ingress {
     protocol         = "tcp"
-    from_port        = 80
+    from_port        = var.container_port
     to_port          = var.container_port
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
@@ -83,8 +100,6 @@ resource "aws_security_group" "ecs_task_app_storage" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
-
-
 
 
 resource "aws_ecs_service" "app-storage" {
@@ -103,7 +118,7 @@ resource "aws_ecs_service" "app-storage" {
   load_balancer {
     target_group_arn = var.alb_target_group_arn
     container_port   = var.container_port
-    container_name   = "${var.container_name}"
+    container_name   = var.container_name
   }
 
 }

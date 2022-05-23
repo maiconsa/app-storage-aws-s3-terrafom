@@ -4,7 +4,7 @@ resource "aws_security_group" "alb_security_group" {
   ingress {
     protocol         = "tcp"
     from_port        = 80
-    to_port          = 80
+    to_port = 80
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
@@ -23,12 +23,12 @@ resource "aws_lb" "alb" {
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb_security_group.id]
-  subnets                    = var.private_subnet_ids
+  subnets                    = var.public_subnet_ids
   enable_deletion_protection = false
 }
 
 resource "aws_alb_target_group" "ip_alb_group" {
-  port        = 80
+  port        = 8080
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"

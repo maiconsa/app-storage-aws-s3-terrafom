@@ -49,32 +49,33 @@ module "codebuild" {
   container_name = var.container_name
 }
 
-# module "loadbalancer" {
-#   source             = "./modules/loadbalancer"
-#   env                = var.env
-#   app_name           = var.app_name
-#   vpc_id             = module.vpc.vpc_id
-#   private_subnet_ids = module.vpc.private_subnet_ids
-#   healthcheck_path   = var.healthcheck_path
-# }
+module "loadbalancer" {
+  source             = "./modules/loadbalancer"
+  env                = var.env
+  app_name           = var.app_name
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  public_subnet_ids = module.vpc.public_subnet_ids
+  healthcheck_path   = var.healthcheck_path
+}
 
-# module "ecs" {
-#   source               = "./modules/ecs-fargate"
-#   env                  = var.env
-#   app_name             = var.app_name
-#   vpc_id               = module.vpc.vpc_id
-#   private_subnet_ids   = module.vpc.private_subnet_ids
-#   alb_target_group_arn = module.loadbalancer.alb_target_group_arn
+module "ecs" {
+  source               = "./modules/ecs-fargate"
+  env                  = var.env
+  app_name             = var.app_name
+  vpc_id               = module.vpc.vpc_id
+  private_subnet_ids   = module.vpc.private_subnet_ids
+  alb_target_group_arn = module.loadbalancer.alb_target_group_arn
 
-#   region = var.region
-#   bucket_name = module.bucket.bucket_name
-#   bucket_access_key = module.bucket.access_key_app_user
-#   bucket_secret_key = module.bucket.secret_key_app_user
+  region = var.region
+  bucket_name = module.bucket.bucket_name
+  bucket_access_key = module.bucket.access_key_app_user
+  bucket_secret_key = module.bucket.secret_key_app_user
 
-#   container_name   = var.container_name
-#   container_image  = var.container_image
-#   container_port   = var.container_port
-#   container_cpu    = var.container_cpu
-#   container_memory = var.container_memory
+  container_name   = var.container_name
+  container_image  = module.ecr.ecr_repository_url
+  container_port   = var.container_port
+  container_cpu    = var.container_cpu
+  container_memory = var.container_memory
 
-# }
+}
