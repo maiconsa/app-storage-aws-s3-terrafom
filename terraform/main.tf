@@ -47,6 +47,7 @@ module "codebuild" {
   ecr_repository_url    = module.ecr.ecr_repository_url
   image_name = var.container_image
   container_name = var.container_name
+  source_version = var.branch_name
 }
 
 
