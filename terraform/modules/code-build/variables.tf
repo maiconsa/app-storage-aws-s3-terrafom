@@ -27,6 +27,11 @@ variable "ecr_repository_url" {
   type    = string
 }
 
+variable "source_version" {
+  type= string
+  description = "Source version for code build"
+}
+
 variable "github_repository_url" {
   type = string
 }
