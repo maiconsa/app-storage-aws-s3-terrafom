@@ -37,7 +37,7 @@ resource "aws_iam_role_policy" "role-policy" {
         {
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::codepipeline-us-east-1-*"
+                "arn:aws:s3:::*"
             ],
             "Action": [
                 "s3:PutObject",
