@@ -115,8 +115,5 @@ resource "aws_codebuild_project" "codebuild-project" {
     location = var.github_repository_url
     
   }
-  
-  
-  source_version = "feature/devops-aws"
-}
+  }
 

@@ -69,3 +69,13 @@ variable "container_memory" {
 variable "container_port" {
   type = number
 }
+
+variable "repository_id" {
+  type = string
+  description = "The repository id from github"
+}
+
+variable "branch_name" {
+  type = string
+  description = "The branch name for trigger codepipeline"
+}

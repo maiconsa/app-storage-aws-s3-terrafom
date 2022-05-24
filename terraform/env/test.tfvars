@@ -16,3 +16,6 @@ container_image="app-storage"
 container_port=8080
 container_cpu=256
 container_memory=512
+
+repository_id="maiconsa/app-storage-aws-s3-terrafom"
+branch_name="dev"

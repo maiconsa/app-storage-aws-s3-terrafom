@@ -49,6 +49,7 @@ module "codebuild" {
   container_name = var.container_name
 }
 
+
 module "loadbalancer" {
   source             = "./modules/loadbalancer"
   env                = var.env
@@ -78,4 +79,15 @@ module "ecs" {
   container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
+}
+
+module "codepipeline" {
+  source = "./modules/code-pipeline"
+  env= var.env
+  app_name =  var.app_name
+  branch_name = var.branch_name
+  repository_id = var.repository_id
+  project_name = module.codebuild.project_name
+  cluster_name = module.ecs.cluster_name
+  service_name = module.ecs.service_name
 }
