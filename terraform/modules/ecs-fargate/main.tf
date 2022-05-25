@@ -121,4 +121,14 @@ resource "aws_ecs_service" "app-storage" {
     container_name   = var.container_name
   }
 
+  lifecycle {
+    ignore_changes = [
+      load_balancer,task_definition
+    ]
+  }
+
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
 }

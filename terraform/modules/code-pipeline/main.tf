@@ -49,14 +49,15 @@ resource "aws_codepipeline" "codepipeline" {
       name            = "Deploy"
       category        = "Deploy"
       owner           = "AWS"
-      provider        = "ECS"
+      provider        = "CodeDeployToECS"
       input_artifacts = ["files"]
       version         = "1"
 
       configuration = {
-         ClusterName = var.cluster_name 
-         ServiceName = var.service_name
-         FileName = "imagedefinitions.json"
+         ApplicationName = var.application_name
+         DeploymentGroupName = var.deployment_group_name
+         TaskDefinitionTemplateArtifact = "source_output"
+
       }
     }
   }

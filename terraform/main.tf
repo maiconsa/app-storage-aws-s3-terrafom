@@ -67,7 +67,7 @@ module "ecs" {
   app_name             = var.app_name
   vpc_id               = module.vpc.vpc_id
   private_subnet_ids   = module.vpc.private_subnet_ids
-  alb_target_group_arn = module.loadbalancer.alb_target_group_arn
+  alb_target_group_arn = module.loadbalancer.blue_alb_target_group.arn
 
   region = var.region
   bucket_name = module.bucket.bucket_name
@@ -80,6 +80,20 @@ module "ecs" {
   container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
+}
+
+module "bluegreen-codedeploy" {
+  source = "./modules/code-deploy"
+  env = var.env
+  app_name = var.app_name
+  cluster_name  = module.ecs.cluster_name
+  service_name = module.ecs.service_name
+
+  main_alb_listener_arn  = module.loadbalancer.main_alb_listener_arn
+  test_alb_listener_arn = module.loadbalancer.test_alb_listener_arn
+
+  blue_alb_target_group_name = module.loadbalancer.blue_alb_target_group.name
+  green_alb_target_group_name = module.loadbalancer.green_alb_target_group.name
 }
 
 module "codepipeline" {
