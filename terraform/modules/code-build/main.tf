@@ -89,9 +89,23 @@ resource "aws_codebuild_project" "codebuild-project" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode = true
+
+  environment_variable {
+    name="TASK_DEFINITION_ARN"
+    value = var.task_def_arn
+  }
+
     environment_variable {
       name="URL_ECR"
       value=var.ecr_repository_url
+    }
+     environment_variable {
+      name="APP_NAME"
+      value=var.app_name
+    }
+      environment_variable {
+      name="ENV"
+      value=var.env
     }
     environment_variable {
       name="REGION"
@@ -105,6 +119,45 @@ resource "aws_codebuild_project" "codebuild-project" {
       name="CONTAINER_NAME"
       value=var.container_name
     }
+    environment_variable {
+      name="CONTAINER_PORT"
+      value=var.container_port
+    }
+
+    environment_variable {
+      name="CONTAINER_CPU"
+      value=var.container_cpu
+    }
+
+        environment_variable {
+      name="CONTAINER_MEMORY"
+      value=var.container_memory
+    }
+
+          environment_variable {
+      name="BUCKET_NAME"
+      value=var.bucket_name
+    }
+
+           environment_variable {
+      name="BUCKET_ACCESS_KEY"
+      value=var.bucket_access_key
+    }
+
+           environment_variable {
+      name="BUCKET_SECRET_KEY"
+      value=var.bucket_secret_key
+    }
+
+    environment_variable{
+      name = "TASK_DEF_EXECUTION_ROLE_ARN"
+      value = var.task_def_execution_role_arn
+    }
+    environment_variable{
+      name = "TASK_DEF_CLOUD_WATCH_GROUP_NAME"
+      value = var.task_def_cloud_watch_group_name
+    }
+    
     
   }
   artifacts {

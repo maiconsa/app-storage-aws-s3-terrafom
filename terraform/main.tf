@@ -46,15 +46,28 @@ module "codebuild" {
   source                = "./modules/code-build"
   env                   = var.env
   app_name              = var.app_name
+  region = var.region
   github_token          = var.github_personal_access_token
   github_repository_url = var.github_repository_url
   ecr_repository_url    = module.ecr.ecr_repository_url
   image_name = var.container_image
   container_name = var.container_name
   source_version = var.branch_name
+  container_cpu =  var.container_cpu
+  container_memory = var.container_memory
+  container_port = var.container_port
 
+  bucket_name = module.bucket.bucket_name
+  bucket_access_key = module.bucket.access_key_app_user
+  bucket_secret_key = module.bucket.secret_key_app_user
+
+  task_def_cloud_watch_group_name = module.ecs.cloud_watch_group_name
+  task_def_execution_role_arn = module.ecs.execution_role_arn
+  task_def_arn = module.ecs.task_def_arn
   depends_on = [
-    module.ecr
+    module.ecr,
+    module.bucket,
+    module.ecs
   ]
 }
 
