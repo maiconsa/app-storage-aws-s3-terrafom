@@ -21,11 +21,11 @@ variable "service_name" {
   description = "The service name create  in ECS Cluster"
 }
 
-variable "blue_target_group_name" {
+variable "blue_alb_target_group_name" {
   type = string
 }
 
-variable "green_target_group_name" {
+variable "green_alb_target_group_name" {
   type = string
 }
 

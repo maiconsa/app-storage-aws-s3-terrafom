@@ -66,10 +66,10 @@ resource "aws_alb_listener" "main" {
 
 resource "aws_alb_listener" "test" {
   load_balancer_arn = aws_lb.alb.id
-  port              = 80
+  port              = 8080
   protocol          = "HTTP"
   default_action {
-    target_group_arn = aws_alb_target_group.blue.arn
+    target_group_arn = aws_alb_target_group.green.arn
     type             = "forward"
   }
 }

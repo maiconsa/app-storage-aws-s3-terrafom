@@ -1,8 +1,8 @@
-output "blue_alb_target_group" {
+output "blue_target_group" {
   value = aws_alb_target_group.blue
 }
 
-output "green_alb_target_group" {
+output "green_target_group" {
   value = aws_alb_target_group.green
 }
 
