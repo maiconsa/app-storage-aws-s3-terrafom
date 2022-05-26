@@ -86,3 +86,8 @@ variable "task_def_cloud_watch_group_name" {
     type = string
     description = "The task def cloud watch  group name"
 }
+
+variable "task_def_arn" {
+    type = string
+    description = "The task def arn "
+}
