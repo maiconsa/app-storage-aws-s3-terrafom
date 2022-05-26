@@ -33,3 +33,13 @@ variable "cluster_name" {
 variable "service_name" {
   description = "The service name create  in ECS Cluster"
 }
+
+variable "application_name" {
+  type = string
+  description = "The name of the application in CodeDeploy. Before you create your pipeline, you must have already created the application in CodeDeploy."
+}
+
+variable "deployment_group_name" {
+  type = string
+  description = "Created  deployment group in CodeDeploy"
+}

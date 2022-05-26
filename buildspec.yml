@@ -20,5 +20,29 @@ phases:
       - echo Escrevendo arquivo imagedefinitions.json
       - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:latest"  > imagedefinitions.json
       - cat imagedefinitions.json
+      - echo Escrevendo arquivo image.json
+      - printf '{"ImageURI":"%s"}' ${URL_ECR}:latest > imageDetail.json
+      - echo Construindo arquivo appspec.yaml
+      - sed -i 's/[CONTAINER_NAME]/'${CONTAINER_NAME}'/g' appspec.yaml
+      - sed -i 's/[CONTAINER_PORT]/'${CONTAINER_PORT}'/g'  appspec.yaml
+      - sed -i 's/[TASK_DEFINITION_ARN]/'${TASK_DEFINITION_ARN}'/g' appspec.yaml
+      - echo Construindo arquivo taskdef.json
+      - sed -i 's/[APP_NAME]/'${APP_NAME}'/g'     taskdef.json
+      - sed -i 's/[ENV]/'${ENV}'/g'     taskdef.json
+      - sed -i 's/[REGION]/'${REGION}'/g'     taskdef.json
+      - sed -i 's/[CONTAINER_CPU]/'${CONTAINER_CPU}'/g'     taskdef.json
+      - sed -i 's/[CONTAINER_NAME]/'${CONTAINER_NAME}'/g'     taskdef.json
+      - sed -i 's/[CONTAINER_MEMORY]/'${CONTAINER_MEMORY}'/g'     taskdef.json
+      - sed -i 's/[CONTAINER_PORT]/'${CONTAINER_PORT}'/g'      taskdef.json    
+      - sed -i 's/[IMAGE_URI]/'${URL_ECR}:latest'/g'     taskdef.json
+      - sed -i 's/[BUCKET_NAME]/'${BUCKET_NAME}'/g'     taskdef.json
+      - sed -i 's/[BUCKET_ACCESS_KEY]/'${BUCKET_ACCESS_KEY}'/g'     taskdef.json
+      - sed -i 's/[BUCKET_SECRET_KEY]/'${BUCKET_SECRET_KEY}'/g'     taskdef.json
+      - sed -i 's/[EXECUTION_ROLE_ARN]/'${TASK_DEF_EXECUTION_ROLE_ARN}'/g'     taskdef.json
+      - sed -i 's/[CLOUD_WATCH_GROUP_NAME]/'${TASK_DEF_CLOUD_WATCH_GROUP_NAME}'/g'     taskdef.json
 artifacts:
-  files: imagedefinitions.json
+  files: 
+    - imagedefinitions.json
+    - imageDetail.json
+    - taskdef.json
+    - appspec.yml

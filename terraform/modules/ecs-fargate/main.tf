@@ -72,9 +72,9 @@ resource "aws_ecs_task_definition" "task_definition" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.logs.name
+          awslogs-group         = "${aws_cloudwatch_log_group.logs.name}"
           awslogs-stream-prefix = "ecs"
-          awslogs-region        = var.region
+          awslogs-region        = "${var.region}"
         }
       }
   }, ])
@@ -119,6 +119,16 @@ resource "aws_ecs_service" "app-storage" {
     target_group_arn = var.alb_target_group_arn
     container_port   = var.container_port
     container_name   = var.container_name
+  }
+
+  lifecycle {
+    ignore_changes = [
+      load_balancer,task_definition
+    ]
+  }
+
+  deployment_controller {
+    type = "CODE_DEPLOY"
   }
 
 }

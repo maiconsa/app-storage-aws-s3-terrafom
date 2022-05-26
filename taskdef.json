@@ -1,0 +1,36 @@
+{
+    "family"                   : "[APP_NAME]-task-def-[ENV]",
+   "network_mode"            : "awsvpc",
+    "requires_compatibilities" : ["FARGATE"],
+    "cpu"                      : "[CONTAINER_CPU]",
+    "memory"                   : "[CONTAINER_MEMORY]",
+    "execution_role_arn"       : "[EXECUTION_ROLE_ARN]",
+    "container_definitions" : [
+      {
+        "name"      : "[CONTAINER_NAME]",
+        "image"     : "[IMAGE_URI]",
+        "essential" : true,
+        "environment" : [
+          { "name" : "SPRING_PROFILES_ACTIVE", "value" : "aws" },
+          { "name" : "STORAGE_S3_BUCKETNAME", "value" : ["[BUCKET_NAME]"] },
+          { "name" : "CLOUD_AWS_S3_REGION", "value" : "[REGION]" },
+          { "name" : "CLOUD_AWS_CREDENTIALS_ACCESSKEY", "value" : "[BUCKET_ACCESS_KEY]" },
+          { "name" : "CLOUD_AWS_CREDENTIALS_SECRETKEY", "value" : "[BUCKET_SECRET_KEY]" }
+        ],
+        "portMappings" : [
+          {
+            "protocol"      : "tcp",
+            "containerPort" : "[CONTAINER_PORT]",
+            "hostPort"      : "[CONTAINER_PORT]"
+          }
+        ],
+        "logConfiguration" : {
+          "logDriver" : "awslogs",
+          "options" : {
+           "awslogs-group": "[CLOUD_WATCH_GROUP_NAME]",
+            "awslogs-stream-prefix" : "ecs",
+            "awslogs-region"        : "[REGION]"
+          }
+        }
+    }]
+  }

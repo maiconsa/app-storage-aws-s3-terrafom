@@ -15,7 +15,7 @@ resource "aws_codepipeline" "codepipeline" {
       owner            = "AWS"
       provider         = "CodeStarSourceConnection"
       version          = "1"
-      output_artifacts = ["source_output"]
+      output_artifacts = ["Source"]
 
       configuration = {
         ConnectionArn    = aws_codestarconnections_connection.codestartconnections.arn
@@ -32,8 +32,8 @@ resource "aws_codepipeline" "codepipeline" {
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
-      input_artifacts  = ["source_output"]
-      output_artifacts = ["files"]
+      input_artifacts  = ["Source"]
+      output_artifacts = ["Build"]
       version          = "1"
 
       configuration = {
@@ -49,14 +49,18 @@ resource "aws_codepipeline" "codepipeline" {
       name            = "Deploy"
       category        = "Deploy"
       owner           = "AWS"
-      provider        = "ECS"
-      input_artifacts = ["files"]
+      provider        = "CodeDeployToECS"
+      input_artifacts = ["Build"]
       version         = "1"
 
       configuration = {
-         ClusterName = var.cluster_name 
-         ServiceName = var.service_name
-         FileName = "imagedefinitions.json"
+         ApplicationName = var.application_name
+         DeploymentGroupName = var.deployment_group_name
+         TaskDefinitionTemplateArtifact = "Build"
+         TaskDefinitionTemplatePath = "taskdef.json"
+         AppSpecTemplateArtifact = "Build"
+         AppSpecTemplatePath = "appspec.yml"
+
       }
     }
   }
@@ -128,7 +132,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       "Effect": "Allow",
       "Action": [
         "codebuild:BatchGetBuilds",
-        "codebuild:StartBuild"
+        "codebuild:StartBuild",
+        "codedeploy:GetApplication"
       ],
       "Resource": "*"
     }

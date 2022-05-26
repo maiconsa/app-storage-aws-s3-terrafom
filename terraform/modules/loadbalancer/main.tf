@@ -27,7 +27,7 @@ resource "aws_lb" "alb" {
   enable_deletion_protection = false
 }
 
-resource "aws_alb_target_group" "ip_alb_group" {
+resource "aws_alb_target_group" "blue" {
   port        = 8080
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -40,12 +40,36 @@ resource "aws_alb_target_group" "ip_alb_group" {
   }
 }
 
-resource "aws_alb_listener" "alb_http_listener" {
+resource "aws_alb_target_group" "green" {
+  port        = 8080
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path     = var.healthcheck_path
+    protocol = "HTTP"
+    timeout  = "3"
+  }
+}
+
+
+resource "aws_alb_listener" "main" {
   load_balancer_arn = aws_lb.alb.id
   port              = 80
   protocol          = "HTTP"
   default_action {
-    target_group_arn = aws_alb_target_group.ip_alb_group.id
+    target_group_arn = aws_alb_target_group.blue.arn
+    type             = "forward"
+  }
+}
+
+resource "aws_alb_listener" "test" {
+  load_balancer_arn = aws_lb.alb.id
+  port              = 8080
+  protocol          = "HTTP"
+  default_action {
+    target_group_arn = aws_alb_target_group.green.arn
     type             = "forward"
   }
 }
