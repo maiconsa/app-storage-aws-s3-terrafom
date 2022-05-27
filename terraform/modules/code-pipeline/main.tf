@@ -54,12 +54,12 @@ resource "aws_codepipeline" "codepipeline" {
       version         = "1"
 
       configuration = {
-         ApplicationName = var.application_name
-         DeploymentGroupName = var.deployment_group_name
-         TaskDefinitionTemplateArtifact = "Build"
-         TaskDefinitionTemplatePath = "taskdef.json"
-         AppSpecTemplateArtifact = "Build"
-         AppSpecTemplatePath = "appspec.yml"
+        ApplicationName                = var.application_name
+        DeploymentGroupName            = var.deployment_group_name
+        TaskDefinitionTemplateArtifact = "Build"
+        TaskDefinitionTemplatePath     = "taskdef.json"
+        AppSpecTemplateArtifact        = "Build"
+        AppSpecTemplatePath            = "appspec.yml"
 
       }
     }
@@ -133,7 +133,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       "Action": [
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild",
-        "codedeploy:GetApplication"
+        "codedeploy:GetApplication",
+        "ecs:*"
       ],
       "Resource": "*"
     }
