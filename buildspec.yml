@@ -25,8 +25,7 @@ phases:
       - echo Construindo arquivo appspec.yml
       - sed -i 's/\[CONTAINER_NAME\]/'${CONTAINER_NAME}'/g' appspec.yml
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'  appspec.yml
-      - TD_ARN = echo  "$TASK_DEFINITION_ARN" |  sed  's/\//\\\//g'
-      - echo "TASK_DEFINITION_ARN ajustado para ${TD_ARN}"
+      - TD_ARN=$(echo  "$TASK_DEFINITION_ARN" |  sed  's/\//\\\//g')
       - sed -i 's/\[TASK_DEFINITION_ARN\]/'${TD_ARN}'/g' appspec.yml
       - echo Construindo arquivo taskdef.json
       - sed -i 's/\[APP_NAME\]/'${APP_NAME}'/g'     taskdef.json
@@ -36,14 +35,14 @@ phases:
       - sed -i 's/\[CONTAINER_NAME\]/'${CONTAINER_NAME}'/g'     taskdef.json
       - sed -i 's/\[CONTAINER_MEMORY\]/'${CONTAINER_MEMORY}'/g'     taskdef.json
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'      taskdef.json    
-      - IMG_URI = echo $URL_ECR | sed  's/\//\\\//g'
+      - IMG_URI=$(echo $URL_ECR | sed  's/\//\\\//g')
       - sed -i 's/\[IMAGE_URI\]/'${IMG_URI}:latest'/g'     taskdef.json
       - sed -i 's/\[BUCKET_NAME\]/'${BUCKET_NAME}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_ACCESS_KEY\]/'${BUCKET_ACCESS_KEY}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_SECRET_KEY\]/'${BUCKET_SECRET_KEY}'/g'     taskdef.json
-      - TD_EXEC_ROLE_ARN = echo  "$TASK_DEF_EXECUTION_ROLE_ARN" |  sed  's/\//\\\//g'
+      - TD_EXEC_ROLE_ARN=$(echo  "$TASK_DEF_EXECUTION_ROLE_ARN" |  sed  's/\//\\\//g')
       - sed -i 's/\[EXECUTION_ROLE_ARN\]/'${TD_EXEC_ROLE_ARN}'/g'     taskdef.json
-      - TD_GROUP_NAME = echo  "$TASK_DEF_CLOUD_WATCH_GROUP_NAME" |  sed  's/\//\\\//g'
+      - TD_GROUP_NAME=$(echo  "$TASK_DEF_CLOUD_WATCH_GROUP_NAME" |  sed  's/\//\\\//g')
       - sed -i 's/\[CLOUD_WATCH_GROUP_NAME\]/'${TD_GROUP_NAME}'/g'     taskdef.json
 artifacts:
   files: 
