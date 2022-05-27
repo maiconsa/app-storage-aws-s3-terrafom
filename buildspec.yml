@@ -35,7 +35,7 @@ phases:
       - sed -i 's/\[CONTAINER_NAME\]/'${CONTAINER_NAME}'/g'     taskdef.json
       - sed -i 's/\[CONTAINER_MEMORY\]/'${CONTAINER_MEMORY}'/g'     taskdef.json
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'      taskdef.json    
-      - IMG_URI= echo $URL_ECR | sed  's/\//\\\//g'
+      - IMG_URI = echo $URL_ECR | sed  's/\//\\\//g'
       - sed -i 's/\[IMAGE_URI\]/'${IMG_URI}:latest'/g'     taskdef.json
       - sed -i 's/\[BUCKET_NAME\]/'${BUCKET_NAME}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_ACCESS_KEY\]/'${BUCKET_ACCESS_KEY}'/g'     taskdef.json
