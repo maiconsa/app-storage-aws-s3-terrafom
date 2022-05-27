@@ -42,8 +42,10 @@ phases:
       - sed -i 's/\[BUCKET_NAME\]/'${BUCKET_NAME}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_ACCESS_KEY\]/'${BUCKET_ACCESS_KEY}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_SECRET_KEY\]/'${BUCKET_SECRET_KEY}'/g'     taskdef.json
-      - sed -i 's/\[EXECUTION_ROLE_ARN\]/'${TASK_DEF_EXECUTION_ROLE_ARN}'/g'     taskdef.json
-      - sed -i 's/\[CLOUD_WATCH_GROUP_NAME\]/'${TASK_DEF_CLOUD_WATCH_GROUP_NAME}'/g'     taskdef.json
+      - TD_EXEC_ROLE_ARN = echo  "$TASK_DEF_EXECUTION_ROLE_ARN" |  sed  's/\//\\\//g'
+      - sed -i 's/\[EXECUTION_ROLE_ARN\]/'${TD_EXEC_ROLE_ARN}'/g'     taskdef.json
+        TD_GROUP_NAME = echo  "$TASK_DEF_CLOUD_WATCH_GROUP_NAME" |  sed  's/\//\\\//g'
+      - sed -i 's/\[CLOUD_WATCH_GROUP_NAME\]/'${TD_GROUP_NAME}'/g'     taskdef.json
 artifacts:
   files: 
     - imagedefinitions.json
