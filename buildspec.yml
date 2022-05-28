@@ -30,7 +30,7 @@ phases:
       - sed -i 's/\[CONTAINER_NAME\]/'${CONTAINER_NAME}'/g' appspec.yml
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'  appspec.yml
       - TD_ARN=$(echo  "$TASK_DEFINITION_ARN" |  sed  's/\//\\\//g')
-      - sed -i 's/\[TASK_DEFINITION_ARN\]/'arn:aws:ecs:us-east-1:416493607574:task-definition\/app-storage-task-def-test:16'/g' appspec.yml
+      - sed -i 's/\[TASK_DEFINITION_ARN\]/arn:aws:ecs:us-east-1:416493607574:task-definition\/app-storage-task-def-test:16/g' appspec.yml
       - echo Construindo arquivo taskdef.json
       - sed -i 's/\[APP_NAME\]/'${APP_NAME}'/g'     taskdef.json
       - sed -i 's/\[ENV\]/'${ENV}'/g'     taskdef.json
