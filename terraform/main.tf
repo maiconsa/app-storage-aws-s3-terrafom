@@ -65,7 +65,6 @@ module "codebuild" {
 
   task_def_cloud_watch_group_name = module.ecs.cloud_watch_group_name
   task_def_execution_role_arn = module.ecs.execution_role_arn
-  task_def_arn = module.ecs.task_def_arn
   depends_on = [
     module.ecr,
     module.bucket,

@@ -91,11 +91,6 @@ resource "aws_codebuild_project" "codebuild-project" {
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode = true
 
-  environment_variable {
-    name="TASK_DEFINITION_ARN"
-    value = var.task_def_arn
-  }
-
     environment_variable {
       name="URL_ECR"
       value=var.ecr_repository_url
