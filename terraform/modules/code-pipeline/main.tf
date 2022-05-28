@@ -52,7 +52,6 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "CodeDeployToECS"
       input_artifacts = ["Build"]
       version         = "1"
-
       configuration = {
         ApplicationName                = var.application_name
         DeploymentGroupName            = var.deployment_group_name
