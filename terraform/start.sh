@@ -20,4 +20,3 @@ terraform get
  echo "aws_access_key_id=${access_key}"  >> ${AWS_CREDENTIALS_FILE}
  echo "aws_secret_access_key=${secret_key}" >> ${AWS_CREDENTIALS_FILE}
 
-
