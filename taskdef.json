@@ -12,7 +12,7 @@
         "essential" : true,
         "environment" : [
           { "name" : "SPRING_PROFILES_ACTIVE", "value" : "aws" },
-          { "name" : "STORAGE_S3_BUCKETNAME", "value" : ["[BUCKET_NAME]"] },
+          { "name" : "STORAGE_S3_BUCKETNAME", "value" : "[BUCKET_NAME]" },
           { "name" : "CLOUD_AWS_S3_REGION", "value" : "[REGION]" },
           { "name" : "CLOUD_AWS_CREDENTIALS_ACCESSKEY", "value" : "[BUCKET_ACCESS_KEY]" },
           { "name" : "CLOUD_AWS_CREDENTIALS_SECRETKEY", "value" : "[BUCKET_SECRET_KEY]" }
