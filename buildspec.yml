@@ -21,9 +21,6 @@ phases:
       - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
       - docker push ${URL_ECR}:${IMAGE_TAG}
-      # - echo Escrevendo arquivo imagedefinitions.json
-      # - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:${IMAGE_TAG}"  > imagedefinitions.json
-      # - cat imagedefinitions.json
       - echo Escrevendo arquivo image.json
       - printf '{"ImageURI":"%s"}' ${URL_ECR}:${IMAGE_TAG} > imageDetail.json
       - echo Construindo arquivo appspec.yml
@@ -49,7 +46,6 @@ phases:
       - sed -i 's/\[CLOUD_WATCH_GROUP_NAME\]/'${TD_GROUP_NAME}'/g'     taskdef.json
 artifacts:
   files: 
-    - imagedefinitions.json
     - imageDetail.json
     - taskdef.json
     - appspec.yml
