@@ -13,7 +13,7 @@ phases:
     commands:
       - echo "Iniciando contrução da imagem:${IMAGE_NAME}:latest"
       - docker build -t "${IMAGE_NAME}:latest" .
-      - docker tag "${URL_ECR}:${IMAGE_TAG}" ${URL_ECR}:latest
+      - docker tag ${URL_ECR}:${IMAGE_TAG} ${URL_ECR}:latest
   post_build:
     on-failure: ABORT
     commands:
