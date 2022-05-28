@@ -3,5 +3,5 @@ output "application_name" {
 }
 
 output "deployment_group_name" {
-  value = aws_codedeploy_deployment_group.deployment_group.app_name
+  value = aws_codedeploy_deployment_group.deployment_group.deployment_group_name
 }
