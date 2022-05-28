@@ -6,22 +6,25 @@ phases:
       - echo "Logando no Amazon ECR  (${URL_ECR})..."
       - aws --version
       - aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${URL_ECR}
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     on-failure: ABORT
     commands:
       - echo "Iniciando contrução da imagem:${IMAGE_NAME}:latest"
       - docker build -t "${IMAGE_NAME}:latest" .
-      - docker tag "${IMAGE_NAME}:latest" ${URL_ECR}:latest
+      - docker tag "${URL_ECR}:${IMAGE_TAG}" ${URL_ECR}:latest
   post_build:
     on-failure: ABORT
     commands:
       - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
+      - docker push ${URL_ECR}:${IMAGE_TAG}
       - echo Escrevendo arquivo imagedefinitions.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:latest"  > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:${IMAGE_TAG}"  > imagedefinitions.json
       - cat imagedefinitions.json
       - echo Escrevendo arquivo image.json
-      - printf '{"ImageURI":"%s"}' ${URL_ECR}:latest > imageDetail.json
+      - printf '{"ImageURI":"%s"}' ${URL_ECR}:${IMAGE_TAG} > imageDetail.json
       - echo Construindo arquivo appspec.yml
       - sed -i 's/\[CONTAINER_NAME\]/'${CONTAINER_NAME}'/g' appspec.yml
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'  appspec.yml
@@ -36,7 +39,7 @@ phases:
       - sed -i 's/\[CONTAINER_MEMORY\]/'${CONTAINER_MEMORY}'/g'     taskdef.json
       - sed -i 's/\[CONTAINER_PORT\]/'${CONTAINER_PORT}'/g'      taskdef.json    
       - IMG_URI=$(echo $URL_ECR | sed  's/\//\\\//g')
-      - sed -i 's/\[IMAGE_URI\]/'${IMG_URI}:latest'/g'     taskdef.json
+      - sed -i 's/\[IMAGE_URI\]/'${IMG_URI}:${IMAGE_TAG}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_NAME\]/'${BUCKET_NAME}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_ACCESS_KEY\]/'${BUCKET_ACCESS_KEY}'/g'     taskdef.json
       - sed -i 's/\[BUCKET_SECRET_KEY\]/'${BUCKET_SECRET_KEY}'/g'     taskdef.json

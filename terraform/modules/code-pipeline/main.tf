@@ -52,7 +52,6 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "CodeDeployToECS"
       input_artifacts = ["Build"]
       version         = "1"
-
       configuration = {
         ApplicationName                = var.application_name
         DeploymentGroupName            = var.deployment_group_name
@@ -134,7 +133,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild",
         "codedeploy:GetApplication",
-        "ecs:*"
+        "ecs:*",
+        "cloudwatch:*"
       ],
       "Resource": "*"
     }
