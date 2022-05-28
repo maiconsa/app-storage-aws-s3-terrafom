@@ -133,7 +133,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild",
         "codedeploy:GetApplication",
-        "ecs:*"
+        "ecs:*",
+        "cloudwatch:*"
       ],
       "Resource": "*"
     }
