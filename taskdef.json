@@ -1,10 +1,10 @@
 {
     "family"                   : "[APP_NAME]-task-def-[ENV]",
-   "network_mode"            : "awsvpc",
-    "requires_compatibilities" : ["FARGATE"],
+   "networkMode"            : "awsvpc",
+    "requiresCompatibilities" : ["FARGATE"],
     "cpu"                      : "[CONTAINER_CPU]",
     "memory"                   : "[CONTAINER_MEMORY]",
-    "execution_role_arn"       : "[EXECUTION_ROLE_ARN]",
+    "executionRoleArn"       : "[EXECUTION_ROLE_ARN]",
     "containerDefinitions" : [
       {
         "name"      : "[CONTAINER_NAME]",
