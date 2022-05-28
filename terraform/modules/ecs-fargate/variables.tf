@@ -56,3 +56,19 @@ variable "bucket_access_key" {
 variable "bucket_secret_key" {
   type = string
 }
+
+variable "autoscale_max" {
+  type = number
+}
+
+variable "autoscale_min" {
+  type = number
+}
+
+variable "autoscale_mem_value" {
+  type = number
+}
+
+variable "autoscale_cpu_value" {
+  type = number
+}

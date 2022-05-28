@@ -28,7 +28,7 @@ resource "aws_lb" "alb" {
 }
 
 resource "aws_alb_target_group" "blue" {
-  port        = 8080
+  port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
@@ -37,11 +37,13 @@ resource "aws_alb_target_group" "blue" {
     path     = var.healthcheck_path
     protocol = "HTTP"
     timeout  = "3"
+    matcher = "200"
+    interval = "15"
   }
 }
 
 resource "aws_alb_target_group" "green" {
-  port        = 8080
+  port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
@@ -50,6 +52,8 @@ resource "aws_alb_target_group" "green" {
     path     = var.healthcheck_path
     protocol = "HTTP"
     timeout  = "3"
+    matcher = "200"
+    interval = "15"
   }
 }
 
@@ -66,7 +70,7 @@ resource "aws_alb_listener" "main" {
 
 resource "aws_alb_listener" "test" {
   load_balancer_arn = aws_lb.alb.id
-  port              = 8080
+  port              = var.container_port
   protocol          = "HTTP"
   default_action {
     target_group_arn = aws_alb_target_group.green.arn

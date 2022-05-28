@@ -27,3 +27,7 @@ variable "public_subnet_ids" {
 variable "healthcheck_path" {
   type = string
 }
+
+variable "container_port" {
+  type = number
+}

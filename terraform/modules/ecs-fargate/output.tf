@@ -3,7 +3,7 @@ output "cluster_name" {
 }
 
 output "service_name" {
-  value = aws_ecs_service.app-storage.name
+  value = aws_ecs_service.service.name
 }
 
 output "execution_role_arn" {

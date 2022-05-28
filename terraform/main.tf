@@ -79,7 +79,7 @@ module "loadbalancer" {
   private_subnet_ids = module.vpc.private_subnet_ids
   public_subnet_ids = module.vpc.public_subnet_ids
   healthcheck_path   = var.healthcheck_path
-
+  container_port = var.container_port
   depends_on = [
     module.vpc
   ]

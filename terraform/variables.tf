@@ -79,3 +79,11 @@ variable "branch_name" {
   type = string
   description = "The branch name for trigger codepipeline"
 }
+
+variable "autoscale_max" {
+  type = number
+}
+
+variable "autoscale_min" {
+  type = number
+}

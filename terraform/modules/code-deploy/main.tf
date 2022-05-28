@@ -32,7 +32,23 @@ resource "aws_iam_role_policy" "test_policy" {
     Statement = [
       {
         Action = [
-          "ecs:Describe*"
+          "ecs:CreateTaskSet",
+          "ecs:DeleteTaskSet",
+          "ecs:DescribeServices",
+          "ecs:UpdateServicePrimaryTaskSet",
+          "elasticloadbalancing:DescribeListeners",
+          "elasticloadbalancing:DescribeRules",
+          "elasticloadbalancing:DescribeTargetGroups",
+          "elasticloadbalancing:ModifyListener",
+          "elasticloadbalancing:ModifyRule",
+          "lambda:InvokeFunction",
+          "cloudwatch:DescribeAlarms",
+          "sns:Publish",
+          "s3:GetObject",
+          "s3:GetObjectMetadata",
+          "s3:GetObjectVersion",
+
+          "iam:PassRole"
         ]
         Effect   = "Allow"
         Resource = "*"

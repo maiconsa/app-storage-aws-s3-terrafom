@@ -134,6 +134,10 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         "codebuild:StartBuild",
         "codedeploy:GetApplication",
         "codedeploy:GetApplicationRevision",
+        "codedeploy:CreateDeployment",
+        "codedeploy:GetDeploymentConfig",
+        "codedeploy:RegisterApplicationRevision",
+        "codedeploy:GetDeployment",
         "ecs:*",
         "cloudwatch:*",
         "iam:PassRole"

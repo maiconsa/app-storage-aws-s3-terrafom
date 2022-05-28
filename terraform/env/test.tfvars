@@ -19,3 +19,8 @@ container_memory=512
 
 repository_id="maiconsa/app-storage-aws-s3-terrafom"
 branch_name="feature/devops-aws"
+
+autoscale_max=2
+autoscale_min=1
+autoscale_mem_value=80
+autoscale_cpu_value=80

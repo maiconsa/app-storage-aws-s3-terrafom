@@ -102,7 +102,7 @@ resource "aws_security_group" "ecs_task_app_storage" {
 }
 
 
-resource "aws_ecs_service" "app-storage" {
+resource "aws_ecs_service" "service" {
   name            = "${var.app_name}-ecs-service-${var.env}"
   launch_type     = "FARGATE"
   cluster         = aws_ecs_cluster.cluster.id
