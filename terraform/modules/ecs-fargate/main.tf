@@ -106,8 +106,16 @@ resource "aws_ecs_service" "app-storage" {
   name            = "${var.app_name}-ecs-service-${var.env}"
   launch_type     = "FARGATE"
   cluster         = aws_ecs_cluster.cluster.id
-  task_definition = aws_ecs_task_definition.task_definition.arn
+
+  #The family and revision (family:revision) or full ARN of the task definition to run in your service. If a revision isn't specified, the latest ACTIVE revision is used.
+  task_definition = aws_ecs_task_definition.task_definition.family
   desired_count   = 1
+  force_new_deployment = true
+  scheduling_strategy = "REPLICA"
+
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent = 200
+  
   network_configuration {
     subnets          = var.private_subnet_ids
     assign_public_ip = false
