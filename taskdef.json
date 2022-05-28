@@ -5,7 +5,7 @@
     "cpu"                      : "[CONTAINER_CPU]",
     "memory"                   : "[CONTAINER_MEMORY]",
     "execution_role_arn"       : "[EXECUTION_ROLE_ARN]",
-    "container_definitions" : [
+    "containerDefinitions" : [
       {
         "name"      : "[CONTAINER_NAME]",
         "image"     : "[IMAGE_URI]",
