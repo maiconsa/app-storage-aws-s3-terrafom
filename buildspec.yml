@@ -21,9 +21,9 @@ phases:
       - echo Atualizando imagem no repositório...
       - docker push ${URL_ECR}:latest
       - docker push ${URL_ECR}:${IMAGE_TAG}
-      - echo Escrevendo arquivo imagedefinitions.json
-      - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:${IMAGE_TAG}"  > imagedefinitions.json
-      - cat imagedefinitions.json
+      # - echo Escrevendo arquivo imagedefinitions.json
+      # - printf '[{"name":"%s","imageUri":"%s"}]' "${CONTAINER_NAME}" "${URL_ECR}:${IMAGE_TAG}"  > imagedefinitions.json
+      # - cat imagedefinitions.json
       - echo Escrevendo arquivo image.json
       - printf '{"ImageURI":"%s"}' ${URL_ECR}:${IMAGE_TAG} > imageDetail.json
       - echo Construindo arquivo appspec.yml
