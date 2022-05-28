@@ -12,8 +12,9 @@ phases:
     on-failure: ABORT
     commands:
       - echo "Iniciando contrução da imagem:${IMAGE_NAME}:latest"
-      - docker build -t "${IMAGE_NAME}:latest" "${IMAGE_NAME}:${IMAGE_TAG}"  .
-      - docker tag ${URL_ECR}:${IMAGE_TAG} ${URL_ECR}:latest
+      - docker build -t "${IMAGE_NAME}:latest" -t "${IMAGE_NAME}:${IMAGE_TAG}"  .
+      - docker tag "${IMAGE_NAME}:latest" ${URL_ECR}:latest
+      - docker tag "${IMAGE_NAME}:${IMAGE_TAG}" ${URL_ECR}:${IMAGE_TAG}
   post_build:
     on-failure: ABORT
     commands:
