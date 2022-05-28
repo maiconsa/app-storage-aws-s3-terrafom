@@ -21,6 +21,7 @@ resource "aws_codepipeline" "codepipeline" {
         ConnectionArn    = aws_codestarconnections_connection.codestartconnections.arn
         FullRepositoryId = var.repository_id
         BranchName       = var.branch_name
+        OutputArtifactFormat = "CODEBUILD_CLONE_REF"
       }
     }
   }

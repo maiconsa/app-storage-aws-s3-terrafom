@@ -18,4 +18,4 @@ container_cpu=256
 container_memory=512
 
 repository_id="maiconsa/app-storage-aws-s3-terrafom"
-branch_name="dev"
+branch_name="feature/devops-aws"
