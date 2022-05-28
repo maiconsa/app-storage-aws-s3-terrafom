@@ -156,10 +156,12 @@ resource "aws_codebuild_project" "codebuild-project" {
     
   }
   artifacts {
-    type = "CODEPIPELINE"
+    type = "NO_ARTIFACTS"
   }
   source {
-    type = "CODEPIPELINE"    
+    type            = "GITHUB"
+    location        = var.github_repository_url
+    git_clone_depth = 1  
   }
   }
 
