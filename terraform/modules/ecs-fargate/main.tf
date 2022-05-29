@@ -9,7 +9,7 @@ resource "aws_ecs_cluster_capacity_providers" "cap_providers" {
 
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "${var.app_name}-ecsTaskExecutionRole-${var.env}"
+  name = "${var.app_name}-task-exec-role-${var.env}"
 
   assume_role_policy = <<EOF
 {
@@ -82,7 +82,7 @@ resource "aws_ecs_task_definition" "task_definition" {
 
 
 
-resource "aws_security_group" "ecs_task_app_storage" {
+resource "aws_security_group" "ecs_task" {
   name   = "${var.app_name}-sg-${var.env}"
   vpc_id = var.vpc_id
   ingress {
@@ -119,7 +119,7 @@ resource "aws_ecs_service" "service" {
   network_configuration {
     subnets          = var.private_subnet_ids
     assign_public_ip = false
-    security_groups  = [aws_security_group.ecs_task_app_storage.id]
+    security_groups  = [aws_security_group.ecs_task.id]
   }
 
   load_balancer {
