@@ -89,7 +89,7 @@ resource "aws_security_group" "ecs_task" {
     protocol         = "tcp"
     from_port        = var.container_port
     to_port          = var.container_port
-    cidr_blocks      = ["0.0.0.0/0"]
+    security_groups = [ var.loadbalacancer_sec_group_id ]
     ipv6_cidr_blocks = ["::/0"]
   }
   egress {

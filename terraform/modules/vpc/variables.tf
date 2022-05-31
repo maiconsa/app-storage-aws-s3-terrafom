@@ -31,19 +31,3 @@ variable "private_subnet_cidrs" {
   description = "List of cidrs for private subnets"
 }
 
-
-variable "autoscale_max" {
-  type = number
-}
-
-variable "autoscale_min" {
-  type = number
-}
-
-variable "autoscale_mem_value" {
-  type = number
-}
-
-variable "autoscale_cpu_value" {
-  type = number
-}

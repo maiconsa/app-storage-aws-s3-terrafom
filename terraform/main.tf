@@ -104,6 +104,13 @@ module "ecs" {
   container_cpu    = var.container_cpu
   container_memory = var.container_memory
 
+  autoscale_max = var.autoscale_max
+  autoscale_min = var.autoscale_min
+  autoscale_cpu_value = var.autoscale_cpu_value
+  autoscale_mem_value = var.autoscale_mem_value
+
+  loadbalacancer_sec_group_id = module.loadbalancer.sec_group_id
+
   depends_on = [
     module.bucket,
     module.loadbalancer

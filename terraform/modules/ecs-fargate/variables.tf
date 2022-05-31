@@ -72,3 +72,7 @@ variable "autoscale_mem_value" {
 variable "autoscale_cpu_value" {
   type = number
 }
+
+variable "loadbalacancer_sec_group_id" {
+  type = string
+}
