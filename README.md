@@ -13,15 +13,15 @@ Aplicação para armazenamento de mídias na AWS utilizando o serviço S3,Spring
 - Terraform
 - AWS S3, IAM
 - VPC: Security Groups, Application Load Balancer , Subnets, NAT Gateway, Elastic IP , Internet Gateway
- - Simple Storage Service (S3)
- - Cloud Watch
- - Github como Source Provider
- - Code Build
- - Code Deploy com Blue/Green Deployment
- - Code Pipeline
- - Elastic Container Service (ECS) com Fargate
- - Auto Scale
- - Elastic Container Registry (ECR) para armazenamento de imagens docker
+- Simple Storage Service (S3)
+- Cloud Watch
+- Github como Source Provider
+- Code Build
+- Code Deploy com Blue/Green Deployment
+- Code Pipeline
+- Elastic Container Service (ECS) com Fargate
+- Auto Scale
+- Elastic Container Registry (ECR) para armazenamento de imagens docker
 
 
 ## Exemplo aplicação
@@ -42,7 +42,7 @@ Abaixo é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 
 ## Infraestutura como Código (IaC) - Terraform
 
-Para o presente projeto foi utilizado o Terraform para a construção dos recursos **S3**,**IAM (User,  Policy , Secrets**).
+Para o presente projeto foi utilizado o Terraform para a construção de todos os recursos/serviços da AWS  **S3**,**IAM (User,  Policy , Secrets**),**VPC**,**ECS**,**ECR**,etc....
 
 ### Requisitos para executar o Terraform
  Configurar/Criar  o arquivo de credentiais de perfil  no caminho padrão *`~/.aws/credentiais`* informando as suas chaves geradas no console da AWS. No exemplo a seguir é mostrado como ficam as credenciais para cada ambiente presente na pasta *`terraform/env*.
