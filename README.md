@@ -115,5 +115,9 @@ cd ./terraform
 ![Source Provider](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/devops-aws/code-deploy-success.png)
 
 ### Acessando aplicação via DNS do load balancer
-![Source Provider](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/devops-aws/code-deploy-success.png)
+![Source Provider](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/devops-aws/app-running-aws.png)
+
+### Detalhe Blue/Green Deployment
+![Code Deploy Blue/Green Deployment](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/devops-aws/code-deploy-blue-green-details.png)
+
 
