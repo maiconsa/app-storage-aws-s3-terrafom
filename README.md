@@ -31,11 +31,11 @@ Abaixo é mostrado o envio de um novo arquivo.
 ![Imagem Upload realizado com Sucesso](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/app-storage-success-upload.png)
 
 2 - Caixa de Download
-Abaico é mostrado a caixa de download após clicar no botão "Download".
+Abaixo é mostrado a caixa de download após clicar no botão "Download".
 ![Imagem Download](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/app-storage-download.png)
 
 3 - Evidência upload
-Abaico é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
+Abaixo é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 ![Imagem Download](https://github.com/maiconsa/app-storage-aws-s3-terrafom/blob/main/images/objects-bucket.png)
 
 
@@ -45,7 +45,7 @@ Abaico é mostrado os objetos salvos no bucket s3 criado na pasta /upload;
 Para o presente projeto foi utilizado o Terraform para a construção dos recursos **S3**,**IAM (User,  Policy , Secrets**).
 
 ### Requisitos para executar o Terraform
- Configurar/Criar  o arquivo de credentiais de perfil  no caminho padrão *~/.aws/credentiais* informando as suas chaves geradas no console da AWS. No exemplo a seguir é mostrado como ficam as credenciais para cada ambiente presente na pasta *terraform/env*.
+ Configurar/Criar  o arquivo de credentiais de perfil  no caminho padrão *`~/.aws/credentiais`* informando as suas chaves geradas no console da AWS. No exemplo a seguir é mostrado como ficam as credenciais para cada ambiente presente na pasta *`terraform/env*.
 
 ```bash
 [test]
