@@ -78,6 +78,15 @@ cd ./terraform
 ./start.sh [ENV]
  ```
 
+### Destruindo os recursos criados
+```bash
+cd ./terraform
+./start.sh [ENV]
+ ```
+
+***IMPORTANTE:  Tanto para o start como para o destroy será necessário informa o personal token do github.***
+
+***IMPORTANTE:  Como será utilizado o code connections para conectar o webhook do github à AWS é necessário accesso o console AWS e  finalizar o vinculo da conexão com github.  ***
 
 #### Apenas se estiver executando a aplicação local
 Após o fim da execução do script será gerado as credenciais que serão utilizadas para conectar a aplicação com o serviço de S3. O Arquivo de credenciais fica: 	
@@ -95,13 +104,6 @@ aws_access_key_id=[ACCESS_USER_APP_STORAGE]
 aws_secret_access_key=[SECRET_USER_APP_STORAGE]
  ```
  
-### Destruindo os recursos criados
-```bash
-cd ./terraform
-./start.sh [ENV]
- ```
-
-
 ## Esteira CI/CD utilizando recursos na AWS
 
 ### FLuxo geral
